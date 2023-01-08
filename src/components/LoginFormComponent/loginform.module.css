@@ -1,0 +1,110 @@
+.loginForm {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(150, 40, 10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.loginForm .container {
+    width: 40%;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.35);
+    color: white;
+    padding: 4rem;
+    border-radius: 1%;
+}
+
+.loginForm .container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    letter-spacing: 1.1px;
+}
+
+.loginForm form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: auto;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.loginForm .formGroup {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+}
+
+.loginForm .submitButton {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.loginForm .submitButton input {
+    padding: 0.5rem;
+}
+
+.loginForm .label {
+    color: lightgray;
+}
+
+.loginForm input {
+    width: auto;
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.loginForm input:focus {
+    outline: none;
+}
+
+.loginForm .inputRules {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    background-color: rgba(235, 88, 88, 0.534);
+    padding: 0.5rem;
+}
+
+.loginForm .alreadyRegistred {
+    margin-top: 2rem;
+    color: white;
+}
+
+.loginForm .alreadyRegistred a {
+    color: white;
+    text-decoration: underline;
+}
+
+.loginForm .forgotPassword {
+    margin-top: 1rem;
+}
+
+.loginForm .forgotPassword a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* @Media queryes */
+
+@media screen and (max-width: 1080px) {
+    .loginForm .container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .loginForm .container {
+        width: 70%;
+    }
+}

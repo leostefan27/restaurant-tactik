@@ -1,0 +1,114 @@
+.showcaseWrapper {
+    min-height: 85vh;
+}
+
+.showcase {
+    height: 85vh;
+    position: relative;
+    background-position: center;
+}
+
+.showcase .darkTint {
+    height: 85vh;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.showcase .container {
+    width: 60%;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.showcase .showcaseContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.showcase .showcaseContent h1 {
+    color: white;
+    font-size: 2.5rem;
+    opacity: 0;
+}
+
+.showcase .showcaseContent button {
+    border: none;
+    background-color: var(--primaryColor);
+    filter: brightness(0.8);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 500ms all;
+    -webkit-box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    opacity: 0;
+}
+
+.showcase .showcaseContent button:hover {
+    filter: brightness(1);
+}
+
+.showcase .aboutUs {
+    position: absolute;
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    bottom: -15%;
+    width: 50%;
+    margin: auto;
+    color: white;
+    background-color: var(--secondaryColor);
+    -webkit-box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.5);
+    padding: 2rem 5rem;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.showcase .aboutUs hr {
+    width: 25%;
+}
+
+.showcase .aboutUs h1 {
+    color: var(--primaryColor);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .showcase .aboutUs {
+        position: static;
+        border-radius: 10px;
+        opacity: 0;
+    }
+
+    .showcase .container {
+        width: 90%;
+    }
+}
+
+.show {
+    animation: blurIn 2500ms forwards;
+}
+
+@keyframes blurIn {
+    from {
+        opacity: 0;
+        filter: blur(1);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}

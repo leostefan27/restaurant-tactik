@@ -1,0 +1,101 @@
+.testimonials {
+    color: white;
+}
+
+.testimonials .container {
+    background-color: transparent;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 5rem 0;
+}
+
+.testimonials .container hr {
+    width: 50%;
+}
+
+.testimonials .testimonialsTitle {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.testimonials .testimonialsTitle h2 {
+    color: var(--primaryColor);
+    opacity: 0;
+}
+
+.testimonials .testimonialsTitle h3 {
+    font-size: 3.5rem;
+    opacity: 0;
+}
+
+.testimonial {
+    width: 80%;
+    margin: auto;
+    gap: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+}
+
+.testimonial .testimonialText {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.testimonial .testimonialText .testimonialAuthor {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-weight: bold;
+}
+
+.testimonial .testimonialImg img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 768px) {
+    .testimonials .container {
+        gap: 6rem;
+    }
+
+    .testimonial {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .testimonial .testimonialText .testimonialAuthor {
+        position: absolute;
+        right: 0;
+        bottom: -2rem;
+        font-weight: bold;
+    }
+}
+
+.show {
+    animation: blurIn 2500ms forwards;
+}
+
+@keyframes blurIn {
+    from {
+        opacity: 0;
+        filter: blur(1);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}

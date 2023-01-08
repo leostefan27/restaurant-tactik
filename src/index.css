@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+:root {
+    --primaryColor: #f1d56e;
+    --secondaryColor: rgb(10, 10, 10);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #888;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #111;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Ubuntu',
+        sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    background-color: rgb(13, 13, 13);
+    overflow-x: hidden;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}

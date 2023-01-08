@@ -1,0 +1,25 @@
+.missingPage {
+    background-color: #333;
+    height: 100vh;
+}
+
+.missingPage .container {
+    display: flex;
+    height: 100%;
+    width: 80%;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    color: white;
+}
+
+.missingPage h1 {
+    font-size: 2.5rem;
+}
+
+.missingPage a {
+    color: white;
+    text-decoration: underline;
+}

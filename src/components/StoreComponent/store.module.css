@@ -1,0 +1,123 @@
+.store {
+    position: relative;
+}
+
+.store .container {
+    width: 60%;
+    margin: auto;
+}
+
+.store .storeShowcase {
+    background-position: center;
+    background-size: cover;
+    min-height: 60vh;
+    -webkit-box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 6px 6px 15px 1px rgba(0, 0, 0, 0.5);
+}
+
+.store .darkTint {
+    min-height: 60vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white
+}
+
+.store .storeShowcase h1 {
+    font-size: 2rem;
+}
+
+
+.store .productsSection {
+    margin-top: 5rem;
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.store .searchBar {
+    width: 90%;
+    margin: auto;
+    margin-top: 4rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.store .searchBar span {
+    color: white;
+}
+
+.store .searchBar input {
+    outline: none;
+    border: 1px black solid;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    padding: 3px 3px;
+    transition: all 300ms;
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+
+.store .searchBar input:focus {
+    padding: 5px 5px;
+}
+
+.store .addedToCart {
+    position: fixed;
+    bottom: 10vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    flex-direction: row;
+    width: 50%;
+    border-radius: 10px;
+    padding: 0.5rem 0;
+    gap: 1rem;
+    color: white;
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.8);
+    transition: all 300ms;
+}
+
+.store .addedToCart a {
+    color: white;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1600px) {
+    .store .productsSection {
+        display: grid;
+        gap: 3rem;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .store .productsSection {
+        display: grid;
+        gap: 3rem;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .store .productsSection {
+        display: grid;
+        gap: 4rem;
+        grid-template-columns: 1fr;
+    }
+
+    .store .storeShowcase h1 {
+        font-size: 1.5rem;
+        width: 60%;
+        margin: auto;
+    }
+}
