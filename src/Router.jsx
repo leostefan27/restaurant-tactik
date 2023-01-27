@@ -12,6 +12,7 @@ const Reservation = lazy(() => import("./pages/Reservation"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Missing = lazy(() => import("./pages/Missing"));
 
@@ -28,6 +29,7 @@ const Router = () => {
           <Route path="menu" element={<Menu />} />
           <Route path="cart" element={<Cart />} />
           <Route path="reservation" element={<Reservation />} />
+          <Route path="checkout" element={<Checkout />} />
           {/* Protected Routes */}
           <Route element={<ProtectedRouteComponent />}>
             <Route path="dashboard" element={<Dashboard />} />

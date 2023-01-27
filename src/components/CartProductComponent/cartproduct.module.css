@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
     background: rgba(0, 0, 0, 0.2);
-    padding-right: 1.5rem;
+    padding: 1rem 2rem;
 }
 
 .cartProduct .productInfo {
@@ -135,5 +135,13 @@
     .cartProduct .productInfo .productPreview img {
         width: 100%;
         border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .cartProduct {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 2rem;
     }
 }

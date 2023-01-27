@@ -137,7 +137,7 @@ const MenuComponent = () => {
               <p>{categories[idx]}</p>
               <ul className={styles.foods}>
                 {category.map((food, id) => {
-                  return <li key={id}><span>{`${food.name}(${food.weight})`}</span><span>{`${food.price} RON`}</span></li>
+                  return <li key={id}><span>{`${food.name}(${food.weight}g)`}</span><span>{`${food.price} RON`}</span></li>
                 })}
               </ul>
             </div>);

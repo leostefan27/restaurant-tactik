@@ -84,6 +84,13 @@
     }
 }
 
+@media screen and (max-width: 450px) {
+    .testimonials .testimonialsTitle h3 {
+        font-size: 2.5rem;
+        opacity: 0;
+    }
+}
+
 .show {
     animation: blurIn 2500ms forwards;
 }

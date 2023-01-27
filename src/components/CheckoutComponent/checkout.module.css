@@ -1,0 +1,12 @@
+.checkout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout .container {
+    width: 60%;
+    background-color: red;
+}

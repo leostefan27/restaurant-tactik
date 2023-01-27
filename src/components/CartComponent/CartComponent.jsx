@@ -59,7 +59,7 @@ const CartComponent = () => {
         <div className={styles.cartSummary}>
           <p className={styles.summaryTitle}>Sumar comanda</p>
           <p className={styles.totalProductsPrice}>
-            <span>Costul total al produselor:</span>{" "}
+            <span>Costul total al produselor:</span>
             <span>{`${totalCost} RON`}</span>
           </p>
           <p className={styles.deliveryCost}>
@@ -69,7 +69,7 @@ const CartComponent = () => {
             <span>Pret total:</span> <span>{`${totalPrice} RON`}</span>
           </p>
           <hr />
-          <button className={styles.checkoutBtn}>Trimite comanda</button>
+          <button className={styles.checkoutBtn}>Continua</button>
         </div>
       </div>
     </section>

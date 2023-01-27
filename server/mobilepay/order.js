@@ -57,5 +57,19 @@ const getPayment = (orderId, amount, currency, user, address) => {
 // Function that gets the request
 const getRequest = (orderId) => {
   let xml = builder.buildObject(getPayment(orderId, 1, "RON"));
-  return rc4.encrypt;
+  return rc4.encrypt(publicKey, xml);
 };
+
+function decodeResponse(data) {
+  return new Promise(function (resolve, reject) {
+    parser.parseString(
+      rc4.decrypt(privateKey, data.env_key, data.data),
+      function (err, result) {
+        if (err) {
+          reject(err);
+        }
+        resolve(result);
+      }
+    );
+  });
+}

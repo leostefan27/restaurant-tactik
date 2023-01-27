@@ -33,10 +33,6 @@
     height: 50px;
 }
 
-.navbar .branding .brandingImg {
-    width: auto;
-    height: auto;
-}
 
 .navbar .navigation ul {
     display: flex;
@@ -133,5 +129,24 @@
 
     .navbar .smallScreenNavigation a:hover {
         color: var(--primaryColor);
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    .navbar .branding .brandingImg img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .navbar .branding h2 {
+        font-size: 1.3rem;
+    }
+
+    .navbar .navIcons {
+        display: flex;
+        gap: 2rem;
+        font-size: 1.2rem;
+        gap: 1rem;
     }
 }
