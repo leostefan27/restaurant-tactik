@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema(
     },
 
     addresses: {
-      type: [String],
+      type: [],
       required: false,
     },
   },

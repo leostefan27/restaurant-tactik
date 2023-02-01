@@ -13,7 +13,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 const Checkout = lazy(() => import("./pages/Checkout"));
-const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Missing = lazy(() => import("./pages/Missing"));
 
 const Router = () => {
@@ -34,9 +33,6 @@ const Router = () => {
           <Route element={<ProtectedRouteComponent />}>
             <Route path="dashboard" element={<Dashboard />} />
           </Route>
-
-          {/* Admin dashboard routes */}
-          <Route path="admin-panel" element={<AdminPanel />}></Route>
 
           {/* Missing */}
           <Route path="*" element={<Missing />} />

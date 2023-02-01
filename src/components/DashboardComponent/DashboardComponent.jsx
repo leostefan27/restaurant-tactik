@@ -6,22 +6,24 @@ import api from "../../api";
 import { useState } from "react";
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
-import { UserContext }  from "../../contexts/UserContext";
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "../../contexts/UserContext";
 
 const DashboardComponent = () => {
   const userData = useContext(UserContext);
   const [userOrders, setUserOrders] = useState([]);
   const [user, setUser] = useState(null);
   const getOrders = async () => {
-    await api.get(`api/orders/myOrders`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('_token')}`,
-      }
-    }).then((res) => {
-      setUserOrders(res.data);
-    });
-  }
+    await api
+      .get(`api/orders/myOrders`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("_token")}`,
+        },
+      })
+      .then((res) => {
+        setUserOrders(res.data);
+      });
+  };
 
   useEffect(() => {
     setUser(userData.user);
@@ -39,56 +41,41 @@ const DashboardComponent = () => {
           <h1>Contul tau</h1>
         </div>
         <div className={styles.content}>
-          <div className={styles.leftSide}>
-            <div className={styles.personalInfo}>
-              <h3>Date personale</h3>
-              <div>
-                <p>Nume:</p>
-                <p>{user.lastName}</p>
-              </div>
+          <div className={styles.personalInfo}>
+            <p>Name: {`${user.firstName} ${user.lastName}`}</p>
+          </div>
 
-              <div>
-                <p>Prenume:</p>
-                <p>{user.firstName}</p>
-              </div>
-
-              <div>
-                <p>Telefon:</p>
-                <p>{user.phone}</p>
-              </div>
-
-              <div>
-                <p>Email:</p>
-                <p>{user.email}</p>
-              </div>
+          <div className={styles.addresses}>
+            <div className={styles.addressesHeader}>
+              <p><span>Adresele Tale</span><span><FontAwesomeIcon icon={faPlus} /></span></p>
             </div>
-            <div className={styles.userAddresses}>
-              <div className={styles.addAddress}>
-                <FontAwesomeIcon icon={faPlus} /> 
-              </div>
-              <h3>Adresele tale</h3>
-              {user.addresses.map((address, index) => {
+
+            <div className={styles.addressesWrapper}>
+              {user.addresses.map((address, idx) => {
                 return (
-                  <div className={styles.address} key={`${address.bloc}${address.apartament}`}>
-                    <h4>Adresa {index + 1}</h4>
-                    <p>{`Strada ${address.strada} numarul ${address.numarStrada} bloc ${address.bloc} scara ${address.scara} etajul ${address.etaj} apartamenul ${address.apartament}`}</p>
+                  <div className={styles.address}>
+                    <span><FontAwesomeIcon icon={faXmark} /></span>
+                    <p>{`Strada ${address.strada} nr.${address.numarStrada} blocul ${address.bloc} scara ${address.scara} etaj ${address.etaj} apartamentul ${address.apartament}`}</p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className={styles.rightSide}>
-            <div className={styles.userOrders}>
-              <h3>Comenzile tale</h3>
-              {userOrders.map((order) => {
+          <div className={styles.orders}>
+            <div className={styles.ordersHeader}>
+              <p>Comenzile Tale</p>
+            </div>
+            <div className={styles.ordersWrapper}>
+              {userOrders.map((order, orderId) => {
                 return (
-                  <div className={styles.order} key={order.order_id}>
-                    <h4>{`Comanda ${order._created_at}`}</h4>
-                    <div className={styles.orderInfo}>
-                      <p>{`${order.price} RON`}</p>
-                      <p>{order.date}</p>
-                    </div>
+                  <div key={orderId} className={styles.order}>
+                    <p>{order._id}</p>
+                    <ul>
+                      {order.products.map((product, idx) => {
+                        return <li key={idx}>{product}</li>;
+                      })}
+                    </ul>
                   </div>
                 );
               })}
