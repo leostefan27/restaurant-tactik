@@ -8,8 +8,7 @@ const {
   deleteAddress,
 } = require("../controllers/address.controller");
 
-router.get("/:id", getAddressById);
-router.get("/user/:user_id", protect, getAddressesByUserId);
+router.get("/user", protect, getAddressesByUserId);
 router.post("/", protect, addNewAddress);
 router.delete("/:id", protect, deleteAddress);
 

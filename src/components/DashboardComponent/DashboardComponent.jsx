@@ -12,10 +12,11 @@ import { UserContext } from "../../contexts/UserContext";
 const DashboardComponent = () => {
   const userData = useContext(UserContext);
   const [userOrders, setUserOrders] = useState([]);
+  const [userAddresses, setUserAddresses] = useState([]);
   const [user, setUser] = useState(null);
   const getOrders = async () => {
     await api
-      .get(`api/orders/myOrders`, {
+      .get(`/api/orders/myOrders`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("_token")}`,
         },
@@ -25,9 +26,23 @@ const DashboardComponent = () => {
       });
   };
 
+  const getAddresses = async () => {
+    await api
+      .get(`/api/addresses/user`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("_token")}`,
+        },
+      })
+      .then((res) => {
+        setUserAddresses(res.data);
+        console.log(res);
+      });
+  };
+
   useEffect(() => {
     setUser(userData.user);
     getOrders();
+    getAddresses();
   }, []);
 
   if (user === null) {
@@ -51,7 +66,7 @@ const DashboardComponent = () => {
             </div>
 
             <div className={styles.addressesWrapper}>
-              {user.addresses.map((address, idx) => {
+              {userAddresses.map((address, idx) => {
                 return (
                   <div className={styles.address}>
                     <span><FontAwesomeIcon icon={faXmark} /></span>

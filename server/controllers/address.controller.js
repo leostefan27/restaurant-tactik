@@ -1,5 +1,6 @@
-const { faExternalLinkSquare } = require("@fortawesome/free-solid-svg-icons");
+const e = require("express");
 const asyncHandler = require("express-async-handler");
+const { default: mongoose } = require("mongoose");
 const Address = require("../models/address.model");
 
 // @desc        Get address by id
@@ -15,7 +16,7 @@ const getAddressById = asyncHandler(async (req, res) => {
 // @route       GET request to /api/addresses/:user_id
 // @access      private
 const getAddressesByUserId = asyncHandler(async (req, res) => {
-  const addresses = await Address.find({ user: req.params.user_id });
+  const addresses = await Address.find({ user: req.user._id });
 
   res.status(200).json(addresses);
 });
