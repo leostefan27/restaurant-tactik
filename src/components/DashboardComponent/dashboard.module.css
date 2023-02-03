@@ -1,22 +1,193 @@
 .dashboard {
     min-height: 100vh;
     color: white;
+    background-position: center;
+    background-size: cover;
+
+}
+
+.dashboard .darkTint {
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .dashboard .container {
-    width: 80%;
+    width: 60%;
     margin: auto;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: flex-start;
+    gap: 5rem;
 }
 
 .dashboard .header {
-    background-color: rgb(22, 22, 22);
-    width: 100%;
+    margin-top: 10rem;
     text-align: center;
-    padding: 0.5rem 0;
-    color: whitesmoke;
+    font-size: 2rem;
+}
+
+.dashboard .personalInfoSection {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    border-radius: 10px;
+}
+
+.dashboard .personalInfoSection h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard .personalInfoSection h2 span:nth-child(2) {
+    cursor: pointer;
+}
+
+.dashboard .personalInfoSection .personalInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.dashboard .personalInfoSection .personalInfoWrapper p span:nth-child(1) {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.dashboard .addressesSection {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    border-radius: 10px;
+}
+
+.dashboard .addressesSection .addressesWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 40rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dashboard .addressesSection h2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard .addressesSection h2 span:nth-child(2) {
+    cursor: pointer;
+}
+
+.dashboard .addressesSection .addressesWrapper .address {
+    padding: 1rem;
+    border-left: 5px solid var(--primaryColor);
+    transition: all 500ms;
+}
+
+.dashboard .addressesSection .addressesWrapper .address:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard .addressesSection .addressesWrapper p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    gap: 1rem;
+}
+
+.dashboard .addressesSection .addressesWrapper p span:nth-child(2) {
+    cursor: pointer;
+}
+
+.dashboard .ordersSection {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    border-radius: 10px;
+    margin-bottom: 5rem;
+}
+
+.dashboard .ordersSection .ordersWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 50rem;
+    overflow: auto;
+}
+
+.dashboard .ordersSection .order {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-left: 5px solid var(--primaryColor);
+    transition: all 500ms;
+}
+
+.dashboard .ordersSection .order:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard .ordersSection .order .orderHeader {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.dashboard .ordersSection .order ul {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dashboard .ordersSection .order ul li::after {
+    content: ",";
+}
+
+.dashboard .ordersSection .order ul li:last-child::after {
+    content: "";
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard .container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .dashboard .container {
+        width: 95%;
+    }
+
+    .dashboard .header {
+        margin-top: 10rem;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .dashboard .addressesSection .addressesWrapper p {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        gap: 1rem;
+    }
+
+    .dashboard .ordersSection .order .orderHeader {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .dashboard .ordersSection .order {
+        gap: 2rem;
+    }
 }

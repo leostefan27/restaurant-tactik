@@ -8,7 +8,6 @@ const Dashboard = () => {
     <>
       <NavbarComponent />
       <DashboardComponent />
-      <FooterComponent />
     </>
   );
 };

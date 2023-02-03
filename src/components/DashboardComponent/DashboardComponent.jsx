@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./dashboard.module.css";
-import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import api from "../../api";
 import { useState } from "react";
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark, faPen } from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "../../contexts/UserContext";
 
 const DashboardComponent = () => {
@@ -35,7 +34,6 @@ const DashboardComponent = () => {
       })
       .then((res) => {
         setUserAddresses(res.data);
-        console.log(res);
       });
   };
 
@@ -50,42 +48,85 @@ const DashboardComponent = () => {
   }
 
   return (
-    <section className={styles.dashboard}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1>Contul tau</h1>
-        </div>
-        <div className={styles.content}>
-          <div className={styles.personalInfo}>
-            <p>Name: {`${user.firstName} ${user.lastName}`}</p>
+    <section
+      className={styles.dashboard}
+      style={{
+        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/backgrounds/dashboard_bkg.webp)`,
+      }}
+    >
+      <div className={styles.darkTint}>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h1>{`Bine ai venit, ${user.firstName} ${user.lastName}`}</h1>
           </div>
 
-          <div className={styles.addresses}>
-            <div className={styles.addressesHeader}>
-              <p><span>Adresele Tale</span><span><FontAwesomeIcon icon={faPlus} /></span></p>
+          <div className={styles.personalInfoSection}>
+            <h2>
+              <span>Date Personale</span>
+              <span>
+                <FontAwesomeIcon icon={faPen} />
+              </span>
+            </h2>
+
+            <div className={styles.personalInfoWrapper}>
+              <p>
+                <span>Nume:</span> {user.lastName}
+              </p>
+              <p>
+                <span>Prenume:</span> {user.firstName}
+              </p>
+              <p>
+                <span>Telefon:</span> {user.phone}
+              </p>
+              <p>
+                <span>Email:</span> {user.email}
+              </p>
             </div>
+          </div>
+
+          <div className={styles.addressesSection}>
+            <h2>
+              <span>Adresele Tale</span>
+              <span>
+                <FontAwesomeIcon icon={faPlus} />
+              </span>
+            </h2>
 
             <div className={styles.addressesWrapper}>
-              {userAddresses.map((address, idx) => {
+              {userAddresses.map((address) => {
                 return (
-                  <div className={styles.address}>
-                    <span><FontAwesomeIcon icon={faXmark} /></span>
-                    <p>{`Strada ${address.strada} nr.${address.numarStrada} blocul ${address.bloc} scara ${address.scara} etaj ${address.etaj} apartamentul ${address.apartament}`}</p>
+                  <div className={styles.address} key={address._id}>
+                    <p>
+                      <span>
+                        {`Strada ${address.strada} ${address.numarStrada}, `}{" "}
+                        {address.bloc && `bloc ${address.bloc}, `}{" "}
+                        {address.scara && `scara ${address.scara} `}{" "}
+                        {address.bloc && `bloc ${address.bloc}, `}{" "}
+                        {address.apartament &&
+                          `apartamentul ${address.apartament} `}
+                      </span>
+                      <span>
+                        <FontAwesomeIcon icon={faXmark} />
+                      </span>
+                    </p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className={styles.orders}>
-            <div className={styles.ordersHeader}>
-              <p>Comenzile Tale</p>
-            </div>
+          <div className={styles.ordersSection}>
+            <h2>Comenzile Tale</h2>
+
             <div className={styles.ordersWrapper}>
-              {userOrders.map((order, orderId) => {
+              {userOrders.map((order) => {
                 return (
-                  <div key={orderId} className={styles.order}>
-                    <p>{order._id}</p>
+                  <div className={styles.order} key={order._id}>
+                    <div className={styles.orderHeader}>
+                      <h3>{`Comanda ${order._id}`}</h3>
+                      <h3>{`${order.price} RON`}</h3>
+                    </div>
+
                     <ul>
                       {order.products.map((product, idx) => {
                         return <li key={idx}>{product}</li>;

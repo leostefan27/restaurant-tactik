@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
+
 :root {
     --primaryColor: #f1d56e;
     --secondaryColor: rgb(10, 10, 10);
@@ -48,6 +49,13 @@ a {
 
 ul {
     list-style: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 0.9rem;
+    }
 }
 
 @media screen and (max-width: 450px) {
