@@ -89,8 +89,46 @@
 }
 
 .navbar .navIcons .cartIcon:hover,
-.navbar .navIcons .userIcon:hover {
+.navbar .navIcons .userIcon span:hover {
     color: var(--primaryColor);
+}
+
+.navbar .navIcons .userIcon .userMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 1rem;
+    width: 150px;
+    padding: 1rem;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin-top: 1.3rem;
+    right: 6%;
+}
+
+.navbar .navIcons .userIcon .userMenu ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+    width: 150px;
+}
+
+.navbar .navIcons .userIcon .userMenu ul li {
+    transition: all 500ms;
+    width: 150px;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.navbar .navIcons .userIcon .userMenu ul li:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
 }
 
 .navbar .smallScreenNavigation {

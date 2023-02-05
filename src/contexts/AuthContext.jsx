@@ -5,6 +5,8 @@ import api from "../api";
 export const AuthContext = createContext({
   isAuthenticated: null,
   toggleAuth: {},
+  registerUser: {},
+  loginUser: {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -12,29 +14,60 @@ export const AuthProvider = ({ children }) => {
   const token = localStorage.getItem("_token");
 
   const toggleAuth = async () => {
-  try {
-    const res = await api.get("/api/users/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (res.status === 200) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
+    if (token) {
+      try {
+        const response = await api.get("/api/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        console.error(error.data);
+      }
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
+  };
 
-useEffect(() => {
-  toggleAuth();
-}, [token]);
+  useEffect(() => {
+    toggleAuth();
+  }, [token]);
+
+  const registerUser = async (email, password, firstName, lastName, phone) => {
+    await api
+      .post("/api/users", { email, password, firstName, lastName, phone })
+      .then(async (res) => {
+        localStorage.setItem("_token", res.data.token);
+        toggleAuth();
+        window.location.href = "/dashboard";
+      })
+      .catch((err) => {
+        console.log(err);
+        return;
+      });
+  };
+
+  const loginUser = async (email, password) => {
+    await api
+      .post("/api/users/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        localStorage.setItem("_token", res.data.token);
+        toggleAuth();
+        window.location.href = "/dashboard";
+      });
+  };
 
   const contextValue = {
     isAuthenticated,
     toggleAuth,
+    registerUser,
+    loginUser,
   };
 
   return (

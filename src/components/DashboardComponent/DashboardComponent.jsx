@@ -7,12 +7,24 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark, faPen } from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "../../contexts/UserContext";
+import EditPersonalInfoComponent from "../EditPersonalInfoComponent/EditPersonalInfoComponent";
 
 const DashboardComponent = () => {
   const userData = useContext(UserContext);
   const [userOrders, setUserOrders] = useState([]);
   const [userAddresses, setUserAddresses] = useState([]);
   const [user, setUser] = useState(null);
+  const [showEditPersonalInfo, setShowEditPersonalInfo] = useState(false);
+
+
+// Get all the data needed on first render
+  useEffect(() => {
+    setUser(userData.user);
+    getOrders();
+    getAddresses();
+  }, []);
+
+  // Fetch user orders from db
   const getOrders = async () => {
     await api
       .get(`/api/orders/myOrders`, {
@@ -25,6 +37,7 @@ const DashboardComponent = () => {
       });
   };
 
+  // Fetch user addresses from db
   const getAddresses = async () => {
     await api
       .get(`/api/addresses/user`, {
@@ -37,11 +50,28 @@ const DashboardComponent = () => {
       });
   };
 
-  useEffect(() => {
-    setUser(userData.user);
-    getOrders();
-    getAddresses();
-  }, []);
+  // Function to delete an address
+  const deleteAddress = async (id) => {
+    await api
+      .delete(`/api/addresses/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("_token")}`,
+        },
+      })
+      .then((res) => {
+        setUserAddresses((prev) => prev.filter(el => el._id !== id))
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Toggle personal info edit modal
+  const toggleEditPersonalInfo = () => {
+    if(showEditPersonalInfo === false) {
+      setShowEditPersonalInfo(true);
+    } else {
+      setShowEditPersonalInfo(false);
+    }
+  }
 
   if (user === null) {
     return null;
@@ -54,6 +84,8 @@ const DashboardComponent = () => {
         backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/backgrounds/dashboard_bkg.webp)`,
       }}
     >
+      {/* Edit personal info modal */}
+      {showEditPersonalInfo && <EditPersonalInfoComponent closeModal={toggleEditPersonalInfo}/>}
       <div className={styles.darkTint}>
         <div className={styles.container}>
           <div className={styles.header}>
@@ -64,7 +96,7 @@ const DashboardComponent = () => {
             <h2>
               <span>Date Personale</span>
               <span>
-                <FontAwesomeIcon icon={faPen} />
+                <FontAwesomeIcon icon={faPen} onClick={toggleEditPersonalInfo}/>
               </span>
             </h2>
 
@@ -76,7 +108,7 @@ const DashboardComponent = () => {
                 <span>Prenume:</span> {user.firstName}
               </p>
               <p>
-                <span>Telefon:</span> {user.phone}
+                <span>Telefon:</span> {user.phone ? `${user.phone}` : `Nu exista un numar de telefon pe cont`}
               </p>
               <p>
                 <span>Email:</span> {user.email}
@@ -106,7 +138,10 @@ const DashboardComponent = () => {
                           `apartamentul ${address.apartament} `}
                       </span>
                       <span>
-                        <FontAwesomeIcon icon={faXmark} />
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          onClick={() => deleteAddress(address._id)}
+                        />
                       </span>
                     </p>
                   </div>

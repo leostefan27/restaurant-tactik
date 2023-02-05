@@ -11,19 +11,21 @@ export const UserProvider = ({ children }) => {
   const token = localStorage.getItem("_token");
 
   const getUser = async () => {
-    try {
-      const res = await api.get("/api/users/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.status === 200) {
-        setUser(res.data);
-      } else {
-        setUser(null);
+    if (token) {
+      try {
+        const res = await api.get("/api/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.status === 200) {
+          setUser(res.data);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error(error.data);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 

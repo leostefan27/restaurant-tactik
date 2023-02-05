@@ -9,19 +9,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
-
 const NavbarComponent = () => {
-  const goHome = () => {
-    window.location.href = "/";
-  };
-
   const cartContext = useContext(CartContext);
-
   const [smallScreenNavigation, setSmallScreenNavigation] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
   const toggleSmallScreenNavigation = () => {
     smallScreenNavigation
       ? setSmallScreenNavigation(false)
       : setSmallScreenNavigation(true);
+  };
+
+  const toggleShowUserMenu = () => {
+    showUserMenu
+      ? setShowUserMenu(false)
+      : setShowUserMenu(true);
+  }
+
+  const goHome = () => {
+    window.location.href = "/";
   };
 
   return (
@@ -70,9 +76,22 @@ const NavbarComponent = () => {
           </div>
 
           <div className={styles.userIcon}>
-          <a href="/dashboard">
-            <FontAwesomeIcon icon={faUser} />
-          </a>
+            <span>
+              <FontAwesomeIcon icon={faUser} onClick={toggleShowUserMenu}/>
+            </span>
+            {showUserMenu && (
+              <div className={styles.userMenu} onMouseLeave={() => {setShowUserMenu(false)}}>
+                <ul>
+                  <a href="/dashboard">
+                    <li>Contul Meu</li>
+                  </a>
+
+                  <a href="/">
+                    <li>Iesi din cont</li>
+                  </a>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

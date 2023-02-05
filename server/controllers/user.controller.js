@@ -9,14 +9,18 @@ const asyncHandler = require("express-async-handler");
 const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const encryptedPassword = await bcrypt.hash(req.body.password, salt);
-  const userExists = await User.findOne({ email: req.body.email });
+  const userExists = await User.findOne({
+    email: req.body.email,
+  });
 
   if (userExists) {
-    res.status(400).json({ message: "User already exists" });
+    res.status(400).json({
+      message: "User already exists",
+    });
     return;
   }
 
-  await User.create({
+  const newUser = await User.create({
     email: req.body.email,
     password: encryptedPassword,
     firstName: req.body.firstName,
@@ -25,13 +29,14 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   res.status(200).json({
-    email: User.email,
-    phone: User.phone,
-    firstName: User.firstName,
-    lastName: User.lastName,
-    phone: User.phone,
-    addresses: User.addresses,
-    token: generateToken(User._id),
+    id: newUser._id,
+    email: newUser.email,
+    phone: newUser.phone,
+    firstName: newUser.firstName,
+    lastName: newUser.lastName,
+    phone: newUser.phone,
+    addresses: newUser.addresses,
+    token: generateToken(newUser._id),
   });
 });
 
@@ -39,7 +44,9 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST request to /api/users/login/
 // @access  public
 const loginUser = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({
+    email: req.body.email,
+  });
 
   if (user && (await bcrypt.compare(req.body.password, user.password))) {
     res.status(200).json({
@@ -52,7 +59,9 @@ const loginUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400).json({ message: "Email or password incorrect" });
+    res.status(400).json({
+      message: "Email or password incorrect",
+    });
     return;
   }
 });
@@ -64,7 +73,9 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
 
   if (!user) {
-    res.status(400).json({ message: "User not found" });
+    res.status(400).json({
+      message: "User not found",
+    });
     return;
   }
 
@@ -79,9 +90,18 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
-  });
+  const token = jwt.sign(
+    {
+      id,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "30d",
+    }
+  );
+
+  console.log(token);
+  return token;
 };
 
 module.exports = {

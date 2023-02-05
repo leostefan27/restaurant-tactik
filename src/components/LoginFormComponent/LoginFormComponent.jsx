@@ -13,17 +13,7 @@ const LoginFormComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await api
-      .post("/api/users/login", {
-        email: email,
-        password: psw,
-      })
-      .then((res) => {
-        localStorage.setItem('_token', res.data.token);
-        auth.toggleAuth();
-        window.location.href = '/dashboard'
-      });
+    await auth.loginUser(email, psw);
   };
 
   return (
@@ -65,7 +55,7 @@ const LoginFormComponent = () => {
           </div>
         </form>
         <p className={styles.forgotPassword}>
-          <a href="#">Mi-am uitat parola</a>
+          <a href="/register">Mi-am uitat parola</a>
         </p>
       </div>
     </section>

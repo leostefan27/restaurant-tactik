@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./register.module.css";
-import AuthContext from '../../contexts/AuthContext';
+import { AuthContext } from "../../contexts/AuthContext";
+import { redirect } from "react-router-dom";
 
 const NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{1,23}$/;
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const PSW_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%.?%^]).{7,23}$/;
+const PHONE_REGEX = /^([0-9])\w+/;
 
 const RegisterFormComponent = () => {
   const auth = useContext(AuthContext);
@@ -66,6 +68,15 @@ const RegisterFormComponent = () => {
     setConfirmPswValid(confirmPsw === psw);
   }, [confirmPsw]);
 
+  // Phone
+  const [phone, setPhone] = useState(null);
+  const [phoneValid, setPhoneValid] = useState(false);
+  const [phoneFocus, setPhoneFocus] = useState(false);
+
+  useEffect(() => {
+    setPhoneValid(PHONE_REGEX.test(phone));
+  }, [phone]);
+
   // Errors
   // States
   const [errorMsg, setErrorMsg] = useState();
@@ -84,7 +95,12 @@ const RegisterFormComponent = () => {
       setErrorMsg("Va rugam completati corect toate campurile");
       return;
     }
-    auth.registerUser(firstName, lastName, email, psw);
+    try {
+      await auth.registerUser(email, psw, firstName, lastName, phone);
+      // window.location.href = '/';
+    } catch {
+
+    }
   };
 
   return (
@@ -164,6 +180,28 @@ const RegisterFormComponent = () => {
             {!emailValid && emailFocus && (
               <p className={styles.inputRules}>
                 Va rugam introduceti o adresa de mail valida
+              </p>
+            )}
+          </div>
+
+          {/* Phone form group */}
+          <div className={styles.formGroup}>
+            <label htmlFor="phone" className={styles.label}>
+              Telefon:
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              aria-invalid={phone ? "false" : "true"}
+              onFocus={() => setPhoneFocus(true)}
+              onBlur={() => setPhoneFocus(false)}
+            />
+            {!phoneValid && phoneFocus && (
+              <p className={styles.inputRules}>
+                Va rugam introduceti un numar de telefon valid!
               </p>
             )}
           </div>
