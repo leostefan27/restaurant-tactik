@@ -27,7 +27,7 @@ const EditPersonalInfoComponent = (props) => {
   const [lastNameValid, setLastNameValid] = useState(false);
   const [lastNameFocus, setLastNameFocus] = useState(false);
   useEffect(() => {
-    setFirstNameValid(NAME_REGEX.test(lastName));
+    setLastNameValid(NAME_REGEX.test(lastName));
   }, [lastName]);
 
   const [email, setEmail] = useState(userData.user.email);
@@ -44,6 +44,24 @@ const EditPersonalInfoComponent = (props) => {
   useEffect(() => {
     setPhoneValid(PHONE_REGEX.test(phone));
   }, [phone]);
+
+  const updateInfo = async (e) => {
+    e.preventDefault();
+
+    if (firstNameValid && lastNameValid && emailValid && phoneValid) {
+      try {
+        const update = {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+        };
+        await userData.editUser(userData.user.id , update);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
   return (
     <section className={styles.editPersonalInfo}>
       <div className={styles.editPersonalInfoModal}>
@@ -57,113 +75,113 @@ const EditPersonalInfoComponent = (props) => {
 
         <h2>Editeaza Datele Personale</h2>
 
-          <form action="">
-            {/* First name form grouo */}
-            <div className={styles.formGroup}>
-              <label htmlFor="firstName" className={styles.label}>
-                Prenume:
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                placeholder="Ex: John"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                aria-invalid={firstNameValid ? "false" : "true"}
-                autoCapitalize="on"
-                autoComplete="off"
-                onFocus={() => setFirstNameFocus(true)}
-                onBlur={() => setFirstNameFocus(false)}
-              />
-              {!firstNameValid && firstNameFocus && (
-                <p className={styles.inputRules}>
-                  Intre 2 si 24 de caractere. Trebuie sa inceapa cu o litera.
-                  Caracterele speciale nu sunt acceptate
-                </p>
-              )}
-            </div>
-            {/* Last name form group */}
-            <div className={styles.formGroup}>
-              <label htmlFor="lastName" className={styles.label}>
-                Nume:
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Ex: Doe"
-                onChange={(e) => setLastName(e.target.value)}
-                value={lastName}
-                required
-                aria-invalid={lastNameValid ? "false" : "true"}
-                autoCapitalize="on"
-                autoComplete="off"
-                onFocus={() => setLastNameFocus(true)}
-                onBlur={() => setLastNameFocus(false)}
-              />
-              {!lastNameValid && lastNameFocus && (
-                <p className={styles.inputRules}>
-                  Intre 2 si 24 de caractere. Trebuie sa inceapa cu o litera.
-                  Caracterele speciale nu sunt acceptate
-                </p>
-              )}
-            </div>
+        <form onSubmit={updateInfo}>
+          {/* First name form grouo */}
+          <div className={styles.formGroup}>
+            <label htmlFor="firstName" className={styles.label}>
+              Prenume:
+            </label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              placeholder="Ex: John"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              aria-invalid={firstNameValid ? "false" : "true"}
+              autoCapitalize="on"
+              autoComplete="off"
+              onFocus={() => setFirstNameFocus(true)}
+              onBlur={() => setFirstNameFocus(false)}
+            />
+            {!firstNameValid && firstNameFocus && (
+              <p className={styles.inputRules}>
+                Intre 2 si 24 de caractere. Trebuie sa inceapa cu o litera.
+                Caracterele speciale nu sunt acceptate
+              </p>
+            )}
+          </div>
+          {/* Last name form group */}
+          <div className={styles.formGroup}>
+            <label htmlFor="lastName" className={styles.label}>
+              Nume:
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              placeholder="Ex: Doe"
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+              required
+              aria-invalid={lastNameValid ? "false" : "true"}
+              autoCapitalize="on"
+              autoComplete="off"
+              onFocus={() => setLastNameFocus(true)}
+              onBlur={() => setLastNameFocus(false)}
+            />
+            {!lastNameValid && lastNameFocus && (
+              <p className={styles.inputRules}>
+                Intre 2 si 24 de caractere. Trebuie sa inceapa cu o litera.
+                Caracterele speciale nu sunt acceptate
+              </p>
+            )}
+          </div>
 
-            {/* Email form group */}
-            <div className={styles.formGroup}>
-              <label htmlFor="email" className={styles.label}>
-                Email:
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Ex: johndoe@test.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                autoCapitalize="off"
-                autoComplete="on"
-                onFocus={() => setEmailFocus(true)}
-                onBlur={() => setEmailFocus(false)}
-              />
-              {!emailValid && emailFocus && (
-                <p className={styles.inputRules}>
-                  Va rugam introduceti o adresa de mail valida
-                </p>
-              )}
-            </div>
+          {/* Email form group */}
+          <div className={styles.formGroup}>
+            <label htmlFor="email" className={styles.label}>
+              Email:
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Ex: johndoe@test.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoCapitalize="off"
+              autoComplete="on"
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
+            />
+            {!emailValid && emailFocus && (
+              <p className={styles.inputRules}>
+                Va rugam introduceti o adresa de mail valida
+              </p>
+            )}
+          </div>
 
-            {/* Phone form group */}
-            <div className={styles.formGroup}>
-              <label htmlFor="phone" className={styles.label}>
-                Telefon*:
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-                aria-invalid={phone ? "false" : "true"}
-                onFocus={() => setPhoneFocus(true)}
-                onBlur={() => setPhoneFocus(false)}
-              />
-              {!phoneValid && phoneFocus && (
-                <p className={styles.inputRules}>
-                  Va rugam introduceti un numar de telefon valid!
-                </p>
-              )}
-            </div>
+          {/* Phone form group */}
+          <div className={styles.formGroup}>
+            <label htmlFor="phone" className={styles.label}>
+              Telefon*:
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              aria-invalid={phone ? "false" : "true"}
+              onFocus={() => setPhoneFocus(true)}
+              onBlur={() => setPhoneFocus(false)}
+            />
+            {!phoneValid && phoneFocus && (
+              <p className={styles.inputRules}>
+                Va rugam introduceti un numar de telefon valid!
+              </p>
+            )}
+          </div>
 
-            <div className={styles.submitButton}>
-              <input type="submit" value="Salveaza" />
-            </div>
-          </form>
-        </div>
+          <div className={styles.submitButton}>
+            <input type="submit" value="Salveaza" />
+          </div>
+        </form>
+      </div>
     </section>
   );
 };

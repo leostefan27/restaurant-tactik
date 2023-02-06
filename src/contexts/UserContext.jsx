@@ -4,6 +4,7 @@ import api from "../api";
 
 export const UserContext = createContext({
   user: null,
+  editUser: {},
 });
 
 export const UserProvider = ({ children }) => {
@@ -29,12 +30,28 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const editUser = async (id, update) => {
+    await api
+      .put(`api/users/me/edit/${id}`, update, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    window.location.href = "/dashboard";
+  };
+
   useEffect(() => {
     getUser();
   }, [token]);
 
   const contextValue = {
     user,
+    editUser,
   };
 
   return (

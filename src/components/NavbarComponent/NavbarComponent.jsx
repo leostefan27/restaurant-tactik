@@ -8,9 +8,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const NavbarComponent = () => {
   const cartContext = useContext(CartContext);
+  const authContext = useContext(AuthContext);
+
   const [smallScreenNavigation, setSmallScreenNavigation] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -21,10 +24,8 @@ const NavbarComponent = () => {
   };
 
   const toggleShowUserMenu = () => {
-    showUserMenu
-      ? setShowUserMenu(false)
-      : setShowUserMenu(true);
-  }
+    showUserMenu ? setShowUserMenu(false) : setShowUserMenu(true);
+  };
 
   const goHome = () => {
     window.location.href = "/";
@@ -77,19 +78,36 @@ const NavbarComponent = () => {
 
           <div className={styles.userIcon}>
             <span>
-              <FontAwesomeIcon icon={faUser} onClick={toggleShowUserMenu}/>
+              <FontAwesomeIcon icon={faUser} onClick={toggleShowUserMenu} />
             </span>
             {showUserMenu && (
-              <div className={styles.userMenu} onMouseLeave={() => {setShowUserMenu(false)}}>
-                <ul>
-                  <a href="/dashboard">
-                    <li>Contul Meu</li>
-                  </a>
+              <div
+                className={styles.userMenu}
+                onMouseLeave={() => {
+                  setShowUserMenu(false);
+                }}
+              >
+                {authContext.isAuthenticated ? (
+                  <ul>
+                    <a href="/dashboard">
+                      <li>Contul Meu</li>
+                    </a>
 
-                  <a href="/">
-                    <li>Iesi din cont</li>
-                  </a>
-                </ul>
+                    <a href="/">
+                      <li onClick={authContext.logoutUser}>Iesi din cont</li>
+                    </a>
+                  </ul>
+                ) : (
+                  <ul>
+                    <a href="/login">
+                      <li>Intra in cont</li>
+                    </a>
+
+                    <a href="/register">
+                      <li>Creeaza un cont</li>
+                    </a>
+                  </ul>
+                )}
               </div>
             )}
           </div>

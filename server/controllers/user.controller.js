@@ -80,6 +80,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json({
+    id: req.user._id,
     email: user.email,
     phone: user.phone,
     firstName: user.firstName,
@@ -87,6 +88,28 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     phone: user.phone,
     addresses: user.addresses,
   });
+});
+
+// @desc    Update current user
+// @route   PUT request to /api/users/me/edit
+// @access  private
+const editCurrentUser = asyncHandler(async (req, res) => {
+  const user = User.findById(req.params.id);
+  const newUser = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    phone: req.body.phone,
+  };
+
+  if (!user) {
+    res.status(400).json({ message: "User not found" });
+    return;
+  }
+
+  await User.findByIdAndUpdate(req.params.id, newUser, { new: false });
+
+  res.status(200).json({ message: "User updated" });
 });
 
 const generateToken = (id) => {
@@ -108,4 +131,5 @@ module.exports = {
   registerUser,
   loginUser,
   getCurrentUser,
+  editCurrentUser,
 };

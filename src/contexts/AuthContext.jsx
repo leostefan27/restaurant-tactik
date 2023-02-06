@@ -7,6 +7,7 @@ export const AuthContext = createContext({
   toggleAuth: {},
   registerUser: {},
   loginUser: {},
+  logoutUser: {}
 });
 
 export const AuthProvider = ({ children }) => {
@@ -63,11 +64,18 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const logoutUser = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("_token");
+    window.location.href = "/";
+  };
+
   const contextValue = {
     isAuthenticated,
     toggleAuth,
     registerUser,
     loginUser,
+    logoutUser
   };
 
   return (
