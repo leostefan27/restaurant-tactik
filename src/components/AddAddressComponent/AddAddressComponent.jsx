@@ -1,48 +1,64 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import styles from "./addAddress.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "../../contexts/UserContext";
 
 const ADDRESS_REGEX = /^[a-zA-Z0-9-]{0,35}$/;
 
 const AddAddressComponent = (props) => {
+  const userData = useContext(UserContext);
+
   const [errorMsg, setErrorMsg] = useState();
   const errorMsgRef = useRef(null);
 
-  const [strada, setStrada] = useState(null);
+  const [strada, setStrada] = useState();
   const [stradaValid, setStradaValid] = useState(null);
   const [stradaFocus, setStradaFocus] = useState(false);
   useEffect(() => {
     setStradaValid(ADDRESS_REGEX.test(strada));
   }, [strada]);
 
-  const [numarStrada, setNumarStrada] = useState(null);
+  const [numarStrada, setNumarStrada] = useState();
   const [numarStradaValid, setNumarStradaValid] = useState(null);
   const [numarStradaFocus, setNumarStradaFocus] = useState(false);
   useEffect(() => {
     setNumarStradaValid(ADDRESS_REGEX.test(numarStrada));
   }, [numarStrada]);
 
-  const [bloc, setBloc] = useState(null);
+  const [bloc, setBloc] = useState();
   const [blocValid, setBlocValid] = useState(null);
   const [blocFocus, setBlocFocus] = useState(false);
   useEffect(() => {
     setBlocValid(ADDRESS_REGEX.test(bloc));
   }, [bloc]);
 
-  const [scara, setScara] = useState(null);
+  const [scara, setScara] = useState();
   const [scaraValid, setScaraValid] = useState(null);
   const [scaraFocus, setScaraFocus] = useState(false);
   useEffect(() => {
     setScaraValid(ADDRESS_REGEX.test(scara));
   }, [scara]);
 
-  const [apartament, setApartament] = useState(null);
+  const [apartament, setApartament] = useState();
   const [apartamentValid, setApartamentValid] = useState(null);
   const [apartamentFocus, setApartamentFocus] = useState(false);
   useEffect(() => {
     setApartamentValid(ADDRESS_REGEX.test(apartament));
   }, [apartament]);
+
+  const addAddress = async () => {
+    const newAddress = {
+      user_id: userData.user.id,
+      strada: strada,
+      numarStrada: numarStrada,
+      bloc: bloc,
+      scara: scara,
+      apartament: apartament
+    }
+
+    await userData.addAddress(newAddress);
+  }
 
   return (
     <section className={styles.addAddress}>
@@ -57,7 +73,7 @@ const AddAddressComponent = (props) => {
 
         <h2>Adauga o adresa noua</h2>
 
-        <form onSubmit={props.addAddress}>
+        <form onSubmit={addAddress}>
           {/* First name form grouo */}
           <div className={styles.formGroup}>
             <label htmlFor="firstName" className={styles.label}>
@@ -67,7 +83,6 @@ const AddAddressComponent = (props) => {
               type="text"
               name="strada"
               id="strada"
-              value={strada}
               onChange={(e) => setStrada(e.target.value)}
               required
               aria-invalid={stradaValid ? "false" : "true"}
@@ -92,7 +107,6 @@ const AddAddressComponent = (props) => {
               name="numarStrada"
               id="numarStrada"
               onChange={(e) => setNumarStrada(e.target.value)}
-              value={numarStrada}
               required
               aria-invalid={numarStradaValid ? "false" : "true"}
               autoCapitalize="on"
@@ -116,7 +130,6 @@ const AddAddressComponent = (props) => {
               type="bloc"
               name="bloc"
               id="bloc"
-              value={bloc}
               onChange={(e) => setBloc(e.target.value)}
               required
               autoCapitalize="off"
@@ -140,7 +153,6 @@ const AddAddressComponent = (props) => {
               type="tel"
               name="scara"
               id="scara"
-              value={scara}
               onChange={(e) => setScara(e.target.value)}
               required
               aria-invalid={scara ? "false" : "true"}
@@ -163,7 +175,6 @@ const AddAddressComponent = (props) => {
               type="text"
               name="apartament"
               id="apartament"
-              value={apartament}
               onChange={(e) => setApartament(e.target.value)}
               required
               aria-invalid={apartament ? "false" : "true"}

@@ -5,6 +5,7 @@ import api from "../api";
 export const UserContext = createContext({
   user: null,
   editUser: {},
+  addAddress: {}
 });
 
 export const UserProvider = ({ children }) => {
@@ -45,6 +46,21 @@ export const UserProvider = ({ children }) => {
     window.location.href = "/dashboard";
   };
 
+  const addAddress = async (address) => {
+    await api
+      .post("api/addresses/", address, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    window.location.href = "/dashboard";
+  };
+
   useEffect(() => {
     getUser();
   }, [token]);
@@ -52,6 +68,7 @@ export const UserProvider = ({ children }) => {
   const contextValue = {
     user,
     editUser,
+    addAddress
   };
 
   return (

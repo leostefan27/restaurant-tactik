@@ -16,7 +16,7 @@ const DashboardComponent = () => {
   const [userAddresses, setUserAddresses] = useState([]);
   const [user, setUser] = useState(null);
   const [showEditPersonalInfo, setShowEditPersonalInfo] = useState(false);
-  const [showAddAddress, setShowAddAddress] = useState(true);
+  const [showAddAddress, setShowAddAddress] = useState(false);
 
   // Get all the data needed on first render
   useEffect(() => {
@@ -151,10 +151,10 @@ const DashboardComponent = () => {
                       <span>
                         {`Strada ${address.strada} ${address.numarStrada}, `}{" "}
                         {address.bloc && `bloc ${address.bloc}, `}{" "}
-                        {address.scara && `scara ${address.scara} `}{" "}
+                        {address.scara && `scara ${address.scara}, `}{" "}
                         {address.bloc && `bloc ${address.bloc}, `}{" "}
                         {address.apartament &&
-                          `apartamentul ${address.apartament} `}
+                          ` apartamentul ${address.apartament} `}
                       </span>
                       <span>
                         <FontAwesomeIcon

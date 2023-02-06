@@ -21,7 +21,7 @@
     overflow-y: auto;
     margin-top: 5rem;
     width: 70%;
-    background-color: rgba(103, 4, 4, 0.8);
+    background-color: #53471ccc;
     border-radius: 10px;
     padding: 5rem 1rem;
 }
@@ -66,6 +66,7 @@
     border-radius: 10px;
     border: none;
     transition: all 500ms;
+    background-color: whitesmoke;
 }
 
 .editPersonalInfo .formGroup input:focus {

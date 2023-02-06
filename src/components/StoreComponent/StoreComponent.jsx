@@ -74,10 +74,10 @@ const ProductsComponent = () => {
           next={fetchMoreProducts}
           hasMore={true}
         >
-          {storeProducts.map((product, index) => {
+          {storeProducts.map((product, idx) => {
             return (
               <StoreProductComponent
-                key={product.id}
+                key={idx}
                 className={styles.product}
                 product={product}
                 addedToCart={addedToCart}
