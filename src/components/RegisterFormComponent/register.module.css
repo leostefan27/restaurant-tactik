@@ -5,7 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .registerForm .container {
@@ -108,5 +109,19 @@
 
     .registerForm h1 {
         font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .registerForm .container {
+        width: 80%;
+    }
+
+    .registerForm .container h1 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        margin-top: 2.5rem;
+        font-size: 2rem;
+        letter-spacing: 1.1px;
     }
 }

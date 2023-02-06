@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark, faPen } from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "../../contexts/UserContext";
 import EditPersonalInfoComponent from "../EditPersonalInfoComponent/EditPersonalInfoComponent";
+import AddAddressComponent from "../AddAddressComponent/AddAddressComponent";
 
 const DashboardComponent = () => {
   const userData = useContext(UserContext);
@@ -15,9 +16,9 @@ const DashboardComponent = () => {
   const [userAddresses, setUserAddresses] = useState([]);
   const [user, setUser] = useState(null);
   const [showEditPersonalInfo, setShowEditPersonalInfo] = useState(false);
+  const [showAddAddress, setShowAddAddress] = useState(true);
 
-
-// Get all the data needed on first render
+  // Get all the data needed on first render
   useEffect(() => {
     setUser(userData.user);
     getOrders();
@@ -59,19 +60,27 @@ const DashboardComponent = () => {
         },
       })
       .then((res) => {
-        setUserAddresses((prev) => prev.filter(el => el._id !== id))
+        setUserAddresses((prev) => prev.filter((el) => el._id !== id));
       })
       .catch((err) => console.log(err));
   };
 
   // Toggle personal info edit modal
   const toggleEditPersonalInfo = () => {
-    if(showEditPersonalInfo === false) {
+    if (showEditPersonalInfo === false) {
       setShowEditPersonalInfo(true);
     } else {
       setShowEditPersonalInfo(false);
     }
-  }
+  };
+  // Toggle add address modal
+  const toggleAddAddress = () => {
+    if (showAddAddress === false) {
+      setShowAddAddress(true);
+    } else {
+      setShowAddAddress(false);
+    }
+  };
 
   if (user === null) {
     return null;
@@ -85,7 +94,11 @@ const DashboardComponent = () => {
       }}
     >
       {/* Edit personal info modal */}
-      {showEditPersonalInfo && <EditPersonalInfoComponent closeModal={toggleEditPersonalInfo}/>}
+      {showEditPersonalInfo && (
+        <EditPersonalInfoComponent closeModal={toggleEditPersonalInfo} />
+      )}
+      {/* Add new address modal */}
+      {showAddAddress && <AddAddressComponent closeModal={toggleAddAddress} />}
       <div className={styles.darkTint}>
         <div className={styles.container}>
           <div className={styles.header}>
@@ -96,7 +109,10 @@ const DashboardComponent = () => {
             <h2>
               <span>Date Personale</span>
               <span>
-                <FontAwesomeIcon icon={faPen} onClick={toggleEditPersonalInfo}/>
+                <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={toggleEditPersonalInfo}
+                />
               </span>
             </h2>
 
@@ -108,7 +124,10 @@ const DashboardComponent = () => {
                 <span>Prenume:</span> {user.firstName}
               </p>
               <p>
-                <span>Telefon:</span> {user.phone ? `${user.phone}` : `Nu exista un numar de telefon pe cont`}
+                <span>Telefon:</span>{" "}
+                {user.phone
+                  ? `${user.phone}`
+                  : `Nu exista un numar de telefon pe cont`}
               </p>
               <p>
                 <span>Email:</span> {user.email}
@@ -120,7 +139,7 @@ const DashboardComponent = () => {
             <h2>
               <span>Adresele Tale</span>
               <span>
-                <FontAwesomeIcon icon={faPlus} />
+                <FontAwesomeIcon icon={faPlus} onClick={toggleAddAddress}/>
               </span>
             </h2>
 

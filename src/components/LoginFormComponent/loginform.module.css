@@ -5,7 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .loginForm .container {
@@ -59,8 +60,8 @@
 
 .loginForm input {
     width: auto;
-    font-size: 20px;
     padding: 5px 10px;
+    font-size: 1.25rem;
     border-radius: 10px;
     border: none;
 }
@@ -106,5 +107,19 @@
 @media screen and (max-width: 768px) {
     .loginForm .container {
         width: 70%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .loginForm .container {
+        width: 90%;
+    }
+
+    .loginForm .container h1 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        margin-top: 2.5rem;
+        letter-spacing: 1.1px;
     }
 }
