@@ -22,8 +22,7 @@ const HomepageOrderComponent = () => {
               <button className={styles.orderNowButton}>COMANDA ACUM</button>
             </a>
             <a
-              href={`${process.env.PUBLIC_URL}/assets/meniu.pdf`}
-              target="_blank"
+              href="/menu"
             >
               <button className={styles.seeMenuButton}>VEZI MENIUL</button>
             </a>

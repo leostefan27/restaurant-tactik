@@ -4,12 +4,14 @@ import api from "../api";
 
 export const UserContext = createContext({
   user: null,
+  userAddresses: null,
   editUser: {},
-  addAddress: {}
+  addAddress: {},
 });
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userAddresses, setUserAddresses] = useState(null);
   const token = localStorage.getItem("_token");
 
   const getUser = async () => {
@@ -46,6 +48,18 @@ export const UserProvider = ({ children }) => {
     window.location.href = "/dashboard";
   };
 
+  const getAddresses = async () => {
+    if (token) {
+    await api.get('api/addresses/user', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }). then((res) => {
+      setUserAddresses(res.data);
+    }).catch((err) => console.log(err));
+  }
+  }
+
   const addAddress = async (address) => {
     await api
       .post("api/addresses/", address, {
@@ -63,12 +77,14 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     getUser();
+    getAddresses();
   }, [token]);
 
   const contextValue = {
     user,
+    userAddresses,
     editUser,
-    addAddress
+    addAddress,
   };
 
   return (

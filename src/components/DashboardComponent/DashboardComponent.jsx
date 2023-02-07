@@ -13,7 +13,7 @@ import AddAddressComponent from "../AddAddressComponent/AddAddressComponent";
 const DashboardComponent = () => {
   const userData = useContext(UserContext);
   const [userOrders, setUserOrders] = useState([]);
-  const [userAddresses, setUserAddresses] = useState([]);
+  const [userAddresses, setUserAddresses] = useState(userData.userAddresses);
   const [user, setUser] = useState(null);
   const [showEditPersonalInfo, setShowEditPersonalInfo] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
@@ -22,7 +22,6 @@ const DashboardComponent = () => {
   useEffect(() => {
     setUser(userData.user);
     getOrders();
-    getAddresses();
   }, []);
 
   // Fetch user orders from db
@@ -35,19 +34,6 @@ const DashboardComponent = () => {
       })
       .then((res) => {
         setUserOrders(res.data);
-      });
-  };
-
-  // Fetch user addresses from db
-  const getAddresses = async () => {
-    await api
-      .get(`/api/addresses/user`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("_token")}`,
-        },
-      })
-      .then((res) => {
-        setUserAddresses(res.data);
       });
   };
 

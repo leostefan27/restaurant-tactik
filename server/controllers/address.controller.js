@@ -1,6 +1,4 @@
-const e = require("express");
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
 const Address = require("../models/address.model");
 
 // @desc        Get address by id
