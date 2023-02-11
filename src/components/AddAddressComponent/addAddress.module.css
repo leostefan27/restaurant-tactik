@@ -8,7 +8,7 @@
     left: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow-y: auto;
 }
 
@@ -19,7 +19,7 @@
     justify-content: flex-start;
     position: relative;
     overflow-y: auto;
-    margin-top: 5rem;
+    margin-top: 10rem;
     width: 70%;
     background-color: #53471ccc;
     border-radius: 10px;
@@ -78,16 +78,17 @@
     flex-direction: column;
     margin: auto;
     width: 100%;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
 }
 
 .addAddress .submitButton input {
-    width: auto;
-    font-size: 1.25rem;
-    padding: 10px 15px;
-    border-radius: 10px;
     border: none;
-    transition: all 500ms;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+    background-color: var(--primaryColor);
+    color: black;
+    font-size: 1.15rem;
     cursor: pointer;
 }
 
@@ -103,7 +104,46 @@
     border-radius: 5px;
 }
 
+@media screen and (max-width:768px) {
+    .addAddress .addAddressModal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        overflow-y: auto;
+        margin-top: 5rem;
+        width: 80%;
+        background-color: #53471ccc;
+        border-radius: 10px;
+        padding: 5rem 1rem;
+    }
+
+    .addAddress form {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 5rem;
+    }
+}
+
 @media screen and (max-width:450px) {
+    .addAddress .addAddressModal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        overflow-y: auto;
+        margin-top: 5rem;
+        width: 90%;
+        background-color: #53471ccc;
+        border-radius: 10px;
+        padding: 5rem 1rem;
+    }
 
     .addAddress form {
         width: 90%;
